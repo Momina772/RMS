@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="rms" Class="myDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-LNCVRJF;Initial Catalog=rms;User ID=sa" SettingsObjectName="RMS_FYP.Properties.Settings" SettingsPropertyName="rmsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.roles" Member="roles">
+    <Type Name="role">
+      <Column Name="r_id" Type="System.Byte" DbType="TinyInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="r_name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="role_user" Member="users" ThisKey="r_id" OtherKey="u_roleID" Type="user" />
+    </Type>
+  </Table>
+  <Table Name="dbo.users" Member="users">
+    <Type Name="user">
+      <Column Name="u_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="u_name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="u_uname" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="u_password" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="u_phone" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="u_address" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="u_roleID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="role_user" Member="role" ThisKey="u_roleID" OtherKey="r_id" Type="role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.st_insertRoles" Method="st_insertRoles">
+    <Parameter Name="name" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.st_getRoles" Method="st_getRoles">
+    <ElementType Name="st_getRolesResult">
+      <Column Name="ID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Role" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.st_updateRoles" Method="st_updateRoles">
+    <Parameter Name="name" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.st_deleteRoles" Method="st_deleteRoles">
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.st_seachRoles" Method="st_seachRoles">
+    <Parameter Name="data" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="st_seachRolesResult">
+      <Column Name="ID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Role" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.st_inserNewtUsers" Method="st_inserNewtUsers">
+    <Parameter Name="name" Type="System.String" DbType="VarChar(40)" />
+    <Parameter Name="username" Type="System.String" DbType="VarChar(40)" />
+    <Parameter Name="password" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="address" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
